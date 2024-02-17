@@ -1,58 +1,53 @@
-# Speechify Functional Test
-- Feel free to make use of MDN Docs while attempting the assignment.
-- Please refrain from using ChatGPT, CoPilot and other AI code assistance tools while attempting this assignment. 
 
-## The Setup
+```markdown
+# Text-to-Speech Engine for Web Applications
 
-#### API
+Welcome to our Text-to-Speech Engine – a versatile and efficient solution for integrating speech synthesis capabilities into your web applications. This TypeScript library provides a seamless and user-friendly interface to the browser's Speech Synthesis API, abstracting the complexities to empower developers with an intuitive tool.
 
-- The code for the api is in the `api` directory. This piece is basically responsible for sending a random response from the array defined in `data.js`.
-- The api returns a response in form of a JSON object containing contents. The content string is in form of a subset of SSML that is defined later here.
+## Key Features
 
-#### APP
+- **Dynamic Configuration:** Easily customize speech rate, volume, and voice selection.
+- **Event Handling:** Respond to speech boundaries, completion, and state changes with comprehensive event callbacks.
+- **State Management:** Track the initialization, playing, pausing, and ending states of the speech engine effortlessly.
+- **Adaptable API:** Designed to accommodate the nuances of the Speech Synthesis API, offering flexibility for advanced use cases.
 
-- The project is a basic react app, and such should come with all of the standard built ins of react.
-- Core logic for the project is hosted in `lib` folder.
-- `content.ts` file in the lib folder is responsible for fetching and parsing content into sentences.
-- `speech.ts` file contains an implementation for speech engine using the local window.speechSynthesis API.
-- `useSpeech.ts` reactifies the speech engine implementation and returns the controls for playback and gives information about the currently spoken word and sentence.
+## How to Use
 
-# For Candidates:
+### Installation
 
-## Goal
-
-- Create an app that calls an api to fetch SSML content and then synthesizes this content into speech and renders a sentence and word UI for the same.
-
-### Implementation Checklist:
-- [ ] fetchContent: Fetch content from the API end point using a GET request.
-- [ ] parseContentIntoSentences: Parse the fetched content into sentences based on rules described above (please refrain from using DOMParser or any built-in libraries to parse the fetched content)
-- [ ] useSpeech: Hook that takes the current set of sentences and plays it using the speechEngine in speech.ts
-- [ ] UI: A Controls component that allows you to play, pause and fetch new content. A Currently Reading component that displays the currently read sentence and word.
-
-### SSML
-
-- The API returns the content in form of an SSML string. This string will only contain a subset of SSML features: `<speak>`, `<p>`, `<s>`.
-- The assignment only requires focus on the `<s>`element which defines the beginning and the end of the sentences.
-- To complete this assignment, you must extract all the sentences from the SSML files ignoring everything else that is invalid.
-
-#### Parsing the SSML.
-
-- Your parser implementation should have the same output as below.
-
-```ts
-/**
- * input: "<speak><s>This is a sentence.</s><s>This is another sentence</s></speak>",
- * sentences: ['This is a sentence.', 'This is another sentence']
- *
- * input: <speak><s>This is a sentence.</s><s>This is another sentence</s>Some more text</speak>
- * sentences: ['This is a sentence.', 'This is another sentence']
- *
- * input: <speak><s>This is a sentence.</s><s>This is another sentence</s>Some more text<s>This is a longer piece of content</s></speak>
- * sentences: ['This is a sentence.', 'This is another sentence', 'This is a longer piece of content']
- */
+```bash
+npm install text-to-speech-engine
 ```
 
-### An example of a working project.
-![Example](example.gif)
-"# speechify" 
-"# speechify" 
+### Integration
+
+```typescript
+import { createSpeechEngine, SpeechEngineOptions, PlayingState } from 'text-to-speech-engine';
+
+// Set up your options
+const options: SpeechEngineOptions = {
+  onBoundary: (e) => { /* Handle boundary events */ },
+  onEnd: (e) => { /* Handle end events */ },
+  onStateUpdate: (state: PlayingState) => { /* Handle state updates */ },
+};
+
+// Create the speech engine
+const speechEngine = createSpeechEngine(options);
+
+// Load, play, pause, and cancel text seamlessly
+speechEngine.load("Hello, world!");
+speechEngine.play();
+```
+
+### Enjoy the Speech Experience
+
+Effortlessly integrate our Text-to-Speech Engine to enhance the accessibility and engagement of your web applications. Whether you're building educational platforms, accessibility tools, or interactive interfaces, this library provides a solid foundation for delivering spoken content.
+
+## Contributions
+
+Contributions and feedback are welcome! Feel free to open issues, submit pull requests, or share your experiences with the community. Let's collaborate to make web applications more inclusive and dynamic with text-to-speech capabilities.
+
+## License
+
+This project is licensed under the [MIT License](LICENSE) - see the [LICENSE](LICENSE) file for details.
+```
